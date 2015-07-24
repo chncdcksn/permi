@@ -1,0 +1,22 @@
+{
+  "name": "permi",
+  "version": "0.0.1",
+  "main": "index.js",
+  "description": "Permission matcher.",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:chncdcksn/permi.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Chance Dickson <me@chncdcksn.com>",
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "lodash": "^3.10.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.5",
+    "should": "^7.0.2"
+  }
+}
