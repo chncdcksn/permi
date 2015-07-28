@@ -4,7 +4,7 @@ Basic permissions system featuring wildcards.
 
 ## API
 
-##### `permi.match(String pattern, String test) -> Boolean`
+##### `permi(String pattern, String test) -> Boolean`
 
 (Curryable)
 Returns true if test matches pattern. Wildcards are supported.
