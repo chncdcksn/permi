@@ -3,29 +3,15 @@
 var _ = require("lodash");
 
 module.exports = _.curry(function(pattern, match) {
-  if (_.isString(pattern)) {
-    pattern = [pattern];
+  pattern = pattern.split(".");
+  match = match.split(".");
+  if (_.last(pattern) === "*" && match.length > pattern.length) {
+    pattern = pattern.concat(_.repeat("*", match.length - pattern.length).split(""));
   }
-  pattern = _.map(pattern, function(pattern) {
-    return pattern.split(".");
-  });
-  if (_.isString(match)) {
-    match = [match];
+  if (_.last(match) === "*" && match.length < pattern.length) {
+    match = match.concat(_.repeat("*", pattern.length - match.length).split(""));
   }
-  match = _.map(match, function(match) {
-    return match.split(".");
+  return pattern.length === match.length && _.every(_.zip(pattern, match), function(part) {
+    return _.contains(part, "*") || part[0] === part[1];
   });
-  return _.any(_.map(pattern, function(pattern) {
-    return _.any(_.map(match, function(match) {
-      if (_.last(pattern) === "*" && match.length > pattern.length) {
-        pattern = pattern.concat(_.times(match.length - pattern.length, function() { return "*" }));
-      }
-      if (_.last(match) === "*" && match.length < pattern.length) {
-        match = match.concat(_.times(pattern.length - match.length, function() { return "*" }));
-      }
-      return pattern.length === match.length && _.every(_.zip(pattern, match), function(part) {
-        return _.contains(part, "*") || part[0] === part[1];
-      });
-    }));
-  }));
 }, 2);
